@@ -21,6 +21,7 @@ jobs:
         run: |
           git config user.name 'github-actions'
           git config user.email 'github-actions@github.com'
+          rm sha256sums.txt
           sha256sum ./* > sha256sums.txt
           git add sha256sums.txt
           git commit -m "checksum update"
