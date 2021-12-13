@@ -24,5 +24,10 @@ jobs:
           rm sha256sums.txt
           sha256sum ./* > sha256sums.txt
           git add sha256sums.txt
-          git commit -m "checksum update"
+          out="$(git commit -m "checksum update")"
+          echo -e "=== git commit output ===\n$out\n========================="
+          if [[ "$out" ~= ["nothing to commit"] ]]; then
+            echo "there are no new files... skipping..."
+            exit 0
+          fi
           git push origin main
