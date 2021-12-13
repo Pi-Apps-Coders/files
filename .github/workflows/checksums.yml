@@ -26,7 +26,7 @@ jobs:
           git add sha256sums.txt
           out="$(git commit -m "checksum update")"
           echo -e "=== git commit output ===\n$out\n========================="
-          if [[ "$out" ~= ["nothing to commit"] ]]; then
+          if [[ "$out" =~ ["nothing to commit"] ]]; then
             echo "there are no new files... skipping..."
             exit 0
           fi
