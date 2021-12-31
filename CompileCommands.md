@@ -16,6 +16,6 @@ git clone --recursive https://github.com/obsproject/obs-studio.git
 cd obs-studio
 mkdir build
 cd build
-sudo cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_PIPEWIRE=OFF -DBUILD_BROWSER=OFF ..
+cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_PIPEWIRE=OFF -DBUILD_BROWSER=OFF ..
 sudo checkinstall --install=no
 ```
