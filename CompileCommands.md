@@ -74,7 +74,7 @@ Version: 1.0" > debian/DEBIAN/control
 
 echo '#!/bin/bash
 
-sudo ln -sf "$(dpkg -S libudev.so.1 | grep 'libudev.so.1$' | sed 's/.*: //g')" /usr/lib/libudev.so.0' > debian/DEBIAN/postinst
+sudo cp -a "$(dpkg -S 'libudev.so.1' | grep "libudev.so.1$" | sed '"'s/.*: //g'"')" /usr/lib/libudev.so.0' > debian/DEBIAN/postinst
 
 chmod +x debian/DEBIAN/postinst
 
