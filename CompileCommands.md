@@ -2,6 +2,10 @@
 
 ## OBS
 
+#### Compiling with Chromium Embedded Framework
+
+To compile with CEF support (and to allow browser sources and dock support), see this GitHub issue: https://github.com/Botspot/pi-apps/issues/1698
+
 #### Installing Dependencies
 
 ```bash
