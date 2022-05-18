@@ -2,6 +2,24 @@
 
 ## OBS
 
+#### Compiling with Chromium Embedded Framework
+
+To compile with CEF support (and to allow browser sources and dock support), use the following instructions from https://github.com/Botspot/pi-apps/issues/1698.
+
+1. download the minimal CEF binary from here https://cef-builds.spotifycdn.com/index.html#linuxarm64 for version 4638 which matches what OBS uses (click show all builds -> show more builds). You can download the minimal or full, either one is fine.
+2. extract that tar.bz2 to a folder and move to that folder
+3. create a `build` directory in that folder and move to that folder
+4. execute `cmake .. -DPROJECT_ARCH="arm64"` this is to generate the libcef wrapper
+4. `make -j$(nproc)`
+
+now you have built CEF wrapper (chromium embedded framework wrapper), continue to follow the instructions below.
+
+then go to however you normally build obs studio but enable the browser source and point to the CEF folder directory
+so for example:
+```
+-DBUILD_BROWSER=ON -DCEF_ROOT_DIR='/home/user/obs-studio-updates/CEF/cef_binary_95.7.18+g0d6005e+chromium-95.0.4638.69_linuxarm64_minimal'
+```
+
 #### Installing Dependencies
 
 ```bash
