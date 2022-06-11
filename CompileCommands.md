@@ -117,3 +117,11 @@ sudo apt-get purge --auto-remove timeshift-build-deps
 # replace this with the version you built
 sudo apt install ../timeshift_22.06.1_arm64.deb
 ```
+
+------
+
+## Github Desktop
+
+https://github.com/Botspot/pi-apps/pull/1775#issuecomment-1119159519
+
+(waiting on PR to merge for simpler instructions: https://github.com/desktop/dugite-native/pull/368 )
