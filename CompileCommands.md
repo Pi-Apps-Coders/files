@@ -128,6 +128,82 @@ https://github.com/Botspot/pi-apps/pull/1775#issuecomment-1119159519
 
 (waiting on PR to merge for simpler instructions: https://github.com/desktop/dugite-native/pull/368 )
 
+------
+
+## AntiMicroX
+
+```
+version=3.2.4
+
+# install debian package scripts
+sudo apt install devscripts -y
+
+# download and prepare source
+wget https://github.com/AntiMicroX/antimicrox/archive/refs/tags/$version.tar.gz -O antimicrox-$version.tar.gz
+tar -xvf antimicrox-$version.tar.gz
+cd antimicrox-$version
+
+# download and prepare packaging files
+wget https://github.com/ryanfortner/debianization-files/releases/download/zips/antimicrox-debianization.zip
+unzip antimicrox-debianization.zip
+rm antimicrox-debianization.zip
+sed -i 's/REPLACEME/$version/' debian/changelog
+
+# build the package
+dpkg-buildpackage -us -uc -nc
+
+# check parent directory for the package
+cd ../
+```
+
+------
+
+## BalenaEtcher
+
+```
+version=v1.7.9
+
+# Install dependencies
+sudo apt-get install -y git python gcc g++ ruby-dev make libx11-dev libxkbfile-dev fakeroot rpm libsecret-1-dev jq python2.7-dev python3-pip python-setuptools libudev-dev
+sudo gem install fpm --no-document
+# install nodesource repo (I found that 16.x works most reliably with newer etcher versions, but feel free to go higher than this if you like)
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# clone repo and checkout release
+git clone --recursive https://github.com/balena-io/etcher
+cd etcher
+git checkout $version
+
+# install requirements with pip
+pip install -r requirements.txt
+
+# limit node memory usage for older pi models
+export NODE_OPTIONS="--max-old-space-size=1024"
+
+# setup and install npm modules
+make electron-develop
+# at this point you should be able to run a test of Etcher with `npm start`.
+
+# disable tiffutil (mac only app)
+sed -i 's/tiffutil/#tiffutil/g' Makefile 
+# restrict output to .deb package only to save build time (not necessary unless you only want .deb)
+sed -i 's/TARGETS="deb rpm appimage"/TARGETS="deb"/g' scripts/resin/electron/build.sh
+
+# build and package, forcing use of the arm fpm version
+USE_SYSTEM_FPM="true" make electron-build 
+```
+
+The compiled binaries and/or packages will be in the etcher/dist folder.
+
+------
+
+## Remarkable
+
+The original Remarkable package had many dependency issues that have not yet been fixed upstream. For now, we have repackaged it with correct dependencies using [these instructions](https://github.com/seiferteric/remarkable_debfix).
+
+------
+
 ## usbimager
 
 compile libui first
