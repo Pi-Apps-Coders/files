@@ -33,12 +33,14 @@ sudo dpkg -i libfdk-aac-dev_2.0.1-1_armhf.deb
 #### Compiling OBS from source
 
 ```bash
+cd
 git clone --recursive https://github.com/obsproject/obs-studio.git
 cd obs-studio
 mkdir build
 cd build
 cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_PIPEWIRE=OFF -DBUILD_BROWSER=OFF ..
-sudo checkinstall --install=no
+make -j$(nproc)
+cmake --build $HOME/obs-studio/build -t package
 ```
 ------
 
