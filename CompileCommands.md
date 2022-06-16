@@ -239,6 +239,6 @@ now make the usbimager deb
 ```
 sudo apt install build-essential libgtk-3-dev libudisks2-dev libglib2.0-dev
 cd ~/usbimager/src
-USE-LIBUI=yes USE=UDISKS2=yes make all deb
+USE_LIBUI=yes USE_UDISKS2=yes make all deb
 ```
 if all went well, the deb is now in the ~/usbimager folder
