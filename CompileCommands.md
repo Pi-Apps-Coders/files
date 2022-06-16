@@ -40,9 +40,12 @@ sudo apt install build-essential cmake git libmbedtls-dev libasound2-dev libavco
 #### Compiling OBS from source
 
 ```bash
-cd
+version=27.2.4
+
 git clone --recursive https://github.com/obsproject/obs-studio.git
 cd obs-studio
+git checkout $version
+
 mkdir build
 cd build
 
