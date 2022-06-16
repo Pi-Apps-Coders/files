@@ -1,4 +1,4 @@
-# This files contains the commands required to compile the different applications stored in this repository.
+# This file contains the commands required to compile the different applications stored in this repository.
 
 ## OBS
 
