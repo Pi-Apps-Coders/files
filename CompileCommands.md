@@ -268,6 +268,7 @@ Make sure you have `npm` and `git` installed.
 ```bash
 git clone https://github.com/sindresorhus/caprine
 cd caprine
+npm install electron-builder -g
 npm install
 npm run build
 electron-builder -l deb --arm64 # for arm64
