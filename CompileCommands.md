@@ -121,7 +121,7 @@ dpkg-deb --build ./debian vmware-horizon-client_1.0_armhf.deb
 
 ## Timeshift
 
-```
+```bash
 # depends to build deb packages
 sudo apt install -y equivs devscripts
 git clone https://github.com/teejee2008/timeshift.git
@@ -148,7 +148,7 @@ https://github.com/Botspot/pi-apps/pull/1775#issuecomment-1119159519
 
 ## AntiMicroX
 
-```
+```bash
 version=3.2.4
 
 # install debian package scripts
@@ -176,7 +176,7 @@ cd ../
 
 ## BalenaEtcher
 
-```
+```bash
 version=v1.7.9
 
 # Install dependencies
@@ -223,7 +223,7 @@ The original Remarkable package had many dependency issues that have not yet bee
 ## usbimager
 
 compile libui first
-```
+```bash
 cd
 # if this version of meson isn't new enough, get it from pip
 sudo apt install meson
@@ -232,7 +232,7 @@ cd libui
 meson setup  build --buildtype=release --default-library=static
 ```
 then clone usb imager
-```
+```bash
 cd
 git clone https://gitlab.com/bztsrc/usbimager.git -b 1.0.8
 cd usbimager
@@ -252,9 +252,28 @@ LIBS += libui/raspbian.a -ldl
 endif
 ```
 now make the usbimager deb
-```
+```bash
 sudo apt install build-essential libgtk-3-dev libudisks2-dev libglib2.0-dev
 cd ~/usbimager/src
 USE_LIBUI=yes USE_UDISKS2=yes make all deb
 ```
 if all went well, the deb is now in the ~/usbimager folder
+
+------
+
+## Caprine
+
+Make sure you have `npm` and `git` installed.
+
+```bash
+git clone https://github.com/sindresorhus/caprine
+cd caprine
+npm install
+npm run build
+electron-builder -l deb --arm64 # for arm64
+electron-builder -l deb --armv7l # for armv7l
+```
+
+Now the debs are in `./dist/`, which are `caprine_x.xx.x_arm64.deb` and `caprine_x.xx.x_armv7l.deb`.
+
+------
