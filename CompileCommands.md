@@ -341,3 +341,9 @@ sudo apt remove alacritty-build-deps -y
 debs will be one folder up of alacritty
 
 ------
+
+## fsnotifier
+
+literally this folder inside a zip https://github.com/JetBrains/intellij-community/tree/master/native/fsNotifier/linux
+
+------
