@@ -1,5 +1,26 @@
 # This file contains the commands required to compile the different applications stored in this repository.
 
+theofficialgman suggests building packages within a ubuntu bionic schroot (to provide maximum compatibility with supported pi-apps systems)
+```
+sudo debootstrap --include=nano,sudo,git,wget,cmake,meson,python3,build-essential,libglx-mesa0,libegl-mesa0,libgles2-mesa,libgl1-mesa-glx,libegl1-mesa,nginx,libgtk2.0-0,libdbus-glib-1-2,libsdl2-2.0-0,libusb-1.0-0,xterm,ca-certificates --arch arm64 --foreign bionic /srv/chroot/bionic-arm64 http://ports.ubuntu.com
+sudo chroot /srv/chroot/bionic-arm64 /debootstrap/debootstrap --second-stage
+```
+prevent home directory from mounting in schroot by editing `sudo nano /etc/schroot/desktop/fstab` and comment out /home. also, make sure the following lines are present
+```
+/run           /run            none    rw,bind         0       0
+/run/lock      /run/lock       none    rw,bind         0       0
+/dev/shm       /dev/shm        none    rw,bind         0       0
+/run/shm       /run/shm        none    rw,bind         0       0
+```
+
+you can now enter the chroot with 
+`sudo schroot -c bionic-arm64`. you probably want to add your same user to the chroot by executing inside the chroot:
+```
+echo "<username> ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers
+useradd -u 1000 --shell /bin/bash -rmUG wheel,video,audio,render <username>
+su - <username>
+```
+
 ## OBS
 
 #### Compiling with Chromium Embedded Framework
