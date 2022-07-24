@@ -311,3 +311,33 @@ USE_SYSTEM_FPM="true" yarn package
 the deb, rpm, and appimage will now be available in the `release` folder
 
 ------
+
+## Alacritty Terminal
+
+```
+git clone https://github.com/barnumbirr/alacritty-debian.git
+git clone https://github.com/alacritty/alacritty.git
+cd alacritty
+# git checkout whatever version or commit you want, current deb is commit ed4614d0bd2a828a9d89347ad675d4564a3af754
+git checkout ed4614d0bd2a828a9d89347ad675d4564a3af754
+
+# copy the debian folder into alacritty
+cp -a ../alacritty-debian/debian .
+
+# you need to manually edit debian/changelog and debian/control to contain the version and architecture information as necessary
+# arm64 and armhf are valid architectures
+
+# install build dependencies
+sudo mk-build-deps --install
+sudo dpkg-source --before-build .
+# compile sources (uses rustc)
+debian/rules build
+# create debs
+sudo debian/rules binary
+
+# optionally remove the build dependencies
+sudo apt remove alacritty-build-deps -y
+```
+debs will be one folder up of alacritty
+
+------
