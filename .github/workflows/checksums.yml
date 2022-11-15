@@ -1,0 +1,33 @@
+name: checksums
+
+# Controls when the workflow will run
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  generate-checksums:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create checksums
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          rm sha256sums.txt
+          sha256sum ./* > sha256sums.txt
+          git add sha256sums.txt
+          out="$(git commit -m "checksum update")"
+          echo -e "=== git commit output ===\n$out\n========================="
+          if [[ "$out" == *"nothing to commit"* ]]; then
+            echo "there are no new files... skipping..."
+            exit 0
+          fi
+          git push origin main
