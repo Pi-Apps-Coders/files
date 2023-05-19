@@ -1,6 +1,4 @@
 6aee11fdbc4e44b8b04fe26fb4b846ade74d08cb1c98b77ced273be9a4521a3a  ./CompileCommands.md
-bf52ad14a1dc2faae10b9640e4a09eadd3ba32db28edc7c96cdb62d47d166366  ./GitHubDesktop-linux-arm64-3.1.1.deb
-e38d13d837f78e25e7b4f33ec8d250da382160e4808657efa24ab16938746fc3  ./GitHubDesktop-linux-armhf-3.1.1.deb
 b66d02841e24eeae21d694d2193749f18267a9e70e69134609b3cbbf9b7d455d  ./README.md
 33b960f2bcf73c15e9517106bdd4396c722b4ed8c4be5ea033562eb02ba1a1e4  ./alacritty_0.11.0-1_arm64.deb
 2b1d052ffac90907cdd3a6a9087d7faa591c9fbbc208162afdb30383f59b6799  ./alacritty_0.11.0-1_armhf.deb
