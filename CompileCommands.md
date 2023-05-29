@@ -437,10 +437,10 @@ create a PKGBUILD file in a new folder
 
 pkgname=prismlauncher
 pkgver=6.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Minecraft launcher with ability to manage multiple instances."
 arch=('arm64' 'armhf')
-depends=('libatk-bridge2.0-0' 'libatk1.0-0' 'libatspi2.0-0' 'libblkid1' 'libbsd0' 'libc6' 'libcairo-gobject2' 'libcairo2' 'libdatrie1' 'libdbus-1-3' 'libdrm2' 'libegl1' 'libepoxy0' 'libexpat1' 'libfontconfig1' 'libfreetype6' 'libgcc1' 'libgcrypt20' 'libgdk-pixbuf2.0-0' 'libgl1' 'libglib2.0-0' 'libglvnd0' 'libglx0' 'libgpg-error0' 'libgraphite2-3' 'libgtk-3-0' 'libgtk2.0-0' 'libharfbuzz0b' 'libice6' 'libjbig0' 'liblcms2-2' 'liblz4-1' 'liblzma5' 'libmount1' 'libmtdev1' 'libpango-1.0-0' 'libpangocairo-1.0-0' 'libpangoft2-1.0-0' 'libpcre3' 'libpixman-1-0' 'libpng16-16' 'libselinux1' 'libsm6' 'libstdc++6' 'libsystemd0' 'libthai0' 'libtiff5' 'libudev1' 'libuuid1' 'libwayland-client0' 'libwayland-cursor0' 'libwayland-egl1' 'libx11-6' 'libx11-xcb1' 'libxau6' 'libxcb-glx0' 'libxcb-icccm4' 'libxcb-image0' 'libxcb-keysyms1' 'libxcb-randr0' 'libxcb-render-util0' 'libxcb-render0' 'libxcb-shape0' 'libxcb-shm0' 'libxcb-sync1' 'libxcb1' 'libxcb-xfixes0' 'libxcb-xinerama0' 'libxcb-xinput0' 'libxcb-xkb1' 'libxcb1' 'libxcomposite1' 'libxcursor1' 'libxdamage1' 'libxdmcp6' 'libxext6' 'libxfixes3' 'libxi6' 'libxinerama1' 'libxkbcommon-x11-0' 'libxkbcommon0' 'libxrandr2' 'libxrender1' 'zlib1g')
+depends=('libatk-bridge2.0-0' 'libatk1.0-0' 'libatspi2.0-0' 'libblkid1' 'libbsd0' 'libc6' 'libcairo-gobject2' 'libcairo2' 'libdatrie1' 'libdbus-1-3' 'libdrm2' 'libegl1' 'libepoxy0' 'libexpat1' 'libfontconfig1' 'libfreetype6' 'libgcc1' 'libgcrypt20' 'libgdk-pixbuf2.0-0' 'libgl1' 'libglib2.0-0' 'libglvnd0' 'libglx0' 'libgpg-error0' 'libgraphite2-3' 'libgtk-3-0' 'libgtk2.0-0' 'libharfbuzz0b' 'libice6' 'libjbig0' 'liblcms2-2' 'liblz4-1' 'liblzma5' 'libmount1' 'libmtdev1' 'libpango-1.0-0' 'libpangocairo-1.0-0' 'libpangoft2-1.0-0' 'libpcre3' 'libpixman-1-0' 'libpng16-16' 'libselinux1' 'libsm6' 'libstdc++6' 'libsystemd0' 'libthai0' 'libudev1' 'libuuid1' 'libwayland-client0' 'libwayland-cursor0' 'libwayland-egl1' 'libx11-6' 'libx11-xcb1' 'libxau6' 'libxcb-glx0' 'libxcb-icccm4' 'libxcb-image0' 'libxcb-keysyms1' 'libxcb-randr0' 'libxcb-render-util0' 'libxcb-render0' 'libxcb-shape0' 'libxcb-shm0' 'libxcb-sync1' 'libxcb1' 'libxcb-xfixes0' 'libxcb-xinerama0' 'libxcb-xinput0' 'libxcb-xkb1' 'libxcb1' 'libxcomposite1' 'libxcursor1' 'libxdamage1' 'libxdmcp6' 'libxext6' 'libxfixes3' 'libxi6' 'libxinerama1' 'libxkbcommon-x11-0' 'libxkbcommon0' 'libxrandr2' 'libxrender1' 'zlib1g')
 url="https://github.com/PrismLauncher/PrismLauncher"
 license=('GPL3')
 
@@ -492,7 +492,7 @@ package() {
   "armhf") cd /usr/lib/arm-linux-gnueabihf; deb_url="http://ftp.us.debian.org/debian/pool/main/q/qtstyleplugins-src/qt5-gtk2-platformtheme_5.0.0+git23.g335dbec-4+b3_armhf.deb" ;;
   esac
   
-  cp -P ./libcrypto.so.1.1 ./libssl.so.1.1 ./libxcb-util.so.1 ./libxcb-util.so.1.0.0 ./libjpeg.so.8 ./libjpeg.so.8.1.2 ./libicudata.so.60 ./libicudata.so.60.2 ./libicui18n.so.60 ./libicui18n.so.60.2 ./libicuuc.so.60 ./libicuuc.so.60.2 ./libmng.so.2 ./libmng.so.2.0.2 ./libffi.so.6 ./libffi.so.6.0.4 "${pkgdir}/usr/share/${pkgname}/lib/"
+  cp -P ./libcrypto.so.1.1 ./libssl.so.1.1 ./libxcb-util.so.1 ./libxcb-util.so.1.0.0 ./libjpeg.so.8 ./libjpeg.so.8.1.2 ./libicudata.so.60 ./libicudata.so.60.2 ./libicui18n.so.60 ./libicui18n.so.60.2 ./libicuuc.so.60 ./libicuuc.so.60.2 ./libmng.so.2 ./libmng.so.2.0.2 ./libffi.so.6 ./libffi.so.6.0.4 ./libtiff.so.5.3.0 ./libtiff.so.5 "${pkgdir}/usr/share/${pkgname}/lib/"
   
   # The version of QT used from the PPA is QT 5.15.2. In order to get automatic gtk+ themeing support, the QT5 gtk+ plugin needs to be provided in the plugins folder built against QT 5.15.2. The simplest location to obtain this would be ubuntu hirsute (repos taken down) or debian bullseye repos.
   
