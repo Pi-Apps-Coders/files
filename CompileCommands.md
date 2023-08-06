@@ -452,7 +452,7 @@ git clone --depth=1 -b v0.11 https://github.com/Orama-Interactive/Pixelorama.git
 cd Pixelorama
 mkdir -p build/linux-arm64 build/linux-arm32
 ../godot/bin/godot_server.x11.opt.tools.arm64 -v --export  "Linux/X11 64-bit" ./build/linux-arm64/Pixelorama.arm64
-../godot/bin/godot_server.x11.opt.tools.arm64 -v --export  "Linux/X11 32-bit" ./build/linux-arm64/Pixelorama.arm32
+../godot/bin/godot_server.x11.opt.tools.arm64 -v --export  "Linux/X11 32-bit" ./build/linux-arm32/Pixelorama.arm32
 cp -R ./pixelorama_data ./build/linux-arm64
 cp -R ./pixelorama_data ./build/linux-arm32
 cd build/linux-arm64/
