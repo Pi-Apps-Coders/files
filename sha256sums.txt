@@ -1,4 +1,4 @@
-fbf2d2bae3d622b842d9234bb723a6de291e6537ddb4f249aed5d3458c893eb5  ./CompileCommands.md
+f8cc9fe9b5ae7b4d9ba49520bbdaf0c30de64a17a9fed9855c5589d0feb7e01b  ./CompileCommands.md
 b66d02841e24eeae21d694d2193749f18267a9e70e69134609b3cbbf9b7d455d  ./README.md
 33b960f2bcf73c15e9517106bdd4396c722b4ed8c4be5ea033562eb02ba1a1e4  ./alacritty_0.11.0-1_arm64.deb
 2b1d052ffac90907cdd3a6a9087d7faa591c9fbbc208162afdb30383f59b6799  ./alacritty_0.11.0-1_armhf.deb
