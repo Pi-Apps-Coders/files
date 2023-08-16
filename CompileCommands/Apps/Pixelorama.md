@@ -32,7 +32,8 @@ cp /srv/chroot/bionic-armhf/home/ubuntu/godot/bin/godot.x11.opt.arm32 ~/.local/s
 now build pixelorama
 ```bash
 cd ~
-git clone --depth=1 -b v0.11 https://github.com/Orama-Interactive/Pixelorama.git
+version=v0.11.1
+git clone --depth=1 -b ${version} https://github.com/Orama-Interactive/Pixelorama.git
 cd Pixelorama
 mkdir -p build/linux-arm64 build/linux-arm32
 ../godot/bin/godot_server.x11.opt.tools.arm64 -v --export  "Linux/X11 64-bit" ./build/linux-arm64/Pixelorama.arm64
@@ -40,13 +41,13 @@ mkdir -p build/linux-arm64 build/linux-arm32
 cp -R ./pixelorama_data ./build/linux-arm64
 cp -R ./pixelorama_data ./build/linux-arm32
 cd build/linux-arm64/
-zip Pixelorama_v0.11_arm64.zip  ./*
+zip Pixelorama_${version}_arm64.zip  ./*
 
 cd ../../
 cd build/linux-arm32/
-zip Pixelorama_v0.11_arm32.zip  ./*
+zip Pixelorama_${version}_arm32.zip  ./*
 
 # upload to github releases
 cd ~/files
-gh release upload large-files ~/Pixelorama/build/linux-arm64/Pixelorama_v0.11_arm64.zip ~/Pixelorama/build/linux-arm32/Pixelorama_v0.11_arm32.zip
+gh release upload large-files ~/Pixelorama/build/linux-arm64/Pixelorama_${version}_arm64.zip ~/Pixelorama/build/linux-arm32/Pixelorama_${version}_arm32.zip
 ```
