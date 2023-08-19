@@ -4,7 +4,7 @@
 
 To compile with CEF support (and to allow browser sources and dock support), use the following instructions from https://github.com/Botspot/pi-apps/issues/1698.
 
-1. download the minimal CEF binary from here https://cef-builds.spotifycdn.com/index.html#linuxarm64 for version 4758 which is the latest with pre glibc 2.29 support (click show all builds -> show more builds). Download the minimal version.
+1. download the minimal CEF binary from here https://cef-builds.spotifycdn.com/index.html#linuxarm64 for version 4758 which is the latest with pre glibc 2.29 support or anything newer that uses chromium 104+ (click show all builds -> show more builds). Download the minimal version.
 2. extract that tar.bz2 to a folder and move to that folder
 3. create a `build` directory in that folder and move to that folder
 4. execute `cmake .. -DPROJECT_ARCH="arm64"` this is to generate the libcef wrapper
