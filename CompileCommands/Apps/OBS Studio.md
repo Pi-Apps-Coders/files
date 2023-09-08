@@ -4,7 +4,7 @@
 
 To compile with CEF support (and to allow browser sources and dock support), use the following instructions from https://github.com/Botspot/pi-apps/issues/1698.
 
-1. download the minimal CEF binary from here https://cef-builds.spotifycdn.com/index.html#linuxarm64 for version 4758 which is the latest with pre glibc 2.29 support or anything newer that uses chromium 104+ (click show all builds -> show more builds). Download the minimal version.
+1. download the minimal CEF binary from here https://cef-builds.spotifycdn.com/index.html#linuxarm64 for version 4758 which is the latest with pre glibc 2.29 support or anything newer that uses chromium 104+ (click show all builds -> show more builds). Download the minimal version. CEF 102+ currently broken on ARM64 Linux https://github.com/chromiumembedded/cef/issues/3565
 2. extract that tar.bz2 to a folder and move to that folder
 3. create a `build` directory in that folder and move to that folder
 4. execute `cmake .. -DPROJECT_ARCH="arm64"` this is to generate the libcef wrapper
@@ -15,7 +15,7 @@ now you have built CEF wrapper (chromium embedded framework wrapper), continue t
 then go to however you normally build obs studio but enable the browser source and point to the CEF folder directory
 so for example:
 ```
--DBUILD_BROWSER=ON -DCEF_ROOT_DIR='/home/ubuntu/obs-cef/cef_binary_98.2.1+g29d6e22+chromium-98.0.4758.109_linuxarm64_minimal'
+-DBUILD_BROWSER=ON -DCEF_ROOT_DIR='/home/ubuntu/obs-cef/cef_binary_101.0.18+g367b4a0+chromium-101.0.4951.67_linuxarm64_minimal'
 ```
 
 #### Installing Dependencies
@@ -63,7 +63,7 @@ cd build
 
 # if you want cef support (replace cef root dir with correct path)
 # enable PIPEWIRE on Ubuntu 22.04+ Builds
-cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_JACK=ON -DENABLE_PULSEAUDIO=ON -DENABLE_PIPEWIRE=OFF -DENABLE_AJA=OFF -DENABLE_NEW_MPEGTS_OUTPUT=OFF -DBUILD_BROWSER=ON -DCEF_ROOT_DIR=$HOME'/obs-cef/cef_binary_102.0.10+gf249b2e+chromium-102.0.5005.115_linuxarm64_minimal' -DOBS_BUILD_NUMBER=1 -DOBS_VERSION_OVERRIDE=$version ..
+cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_JACK=ON -DENABLE_PULSEAUDIO=ON -DENABLE_PIPEWIRE=OFF -DENABLE_AJA=OFF -DENABLE_NEW_MPEGTS_OUTPUT=OFF -DBUILD_BROWSER=ON -DCEF_ROOT_DIR=$HOME'/obs-cef/cef_binary_101.0.18+g367b4a0+chromium-101.0.4951.67_linuxarm64_minimal' -DOBS_BUILD_NUMBER=1 -DOBS_VERSION_OVERRIDE=$version ..
 
 make -j$(nproc)
 cmake --build $HOME/obs-studio/build -t package
