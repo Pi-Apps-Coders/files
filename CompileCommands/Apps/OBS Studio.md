@@ -46,9 +46,9 @@ sudo apt install libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev 
 #### Compiling OBS from source
 
 ```bash
-version=28.1.2
+version=29.1.3
 
-git clone -b $version --recurse-submodules https://github.com/obsproject/obs-studio.git
+git clone --recurse-submodules --shallow-submodules --depth=1 -j$(nproc) -b $version https://github.com/obsproject/obs-studio.git
 cd obs-studio
 
 mkdir build
@@ -58,10 +58,12 @@ cd build
 # for tegra, we patch out the GL OES check since it produces a false negative (only fixed in recent Desktop Nvidia drivers)
 
 # if you don't want cef support
-cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_PIPEWIRE=OFF -DENABLE_AJA=0 -DENABLE_NEW_MPEGTS_OUTPUT=OFF -DBUILD_BROWSER=OFF -DOBS_BUILD_NUMBER=1 -DOBS_VERSION_OVERRIDE=$version ..
+# enable PIPEWIRE on Ubuntu 22.04+ Builds
+# cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_JACK=ON -DENABLE_PULSEAUDIO=ON -DENABLE_PIPEWIRE=OFF -DENABLE_AJA=OFF -DENABLE_NEW_MPEGTS_OUTPUT=OFF -DBUILD_BROWSER=OFF -DOBS_BUILD_NUMBER=1 -DOBS_VERSION_OVERRIDE=$version ..
 
 # if you want cef support (replace cef root dir with correct path)
-cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_PIPEWIRE=OFF -DENABLE_AJA=0 -DBUILD_BROWSER=OFF -DENABLE_NEW_MPEGTS_OUTPUT=OFF -DBUILD_BROWSER=ON -DCEF_ROOT_DIR='/home/ubuntu/obs-cef/cef_binary_98.2.1+g29d6e22+chromium-98.0.4758.109_linuxarm64_minimal' -DOBS_BUILD_NUMBER=1 -DOBS_VERSION_OVERRIDE=$version ..
+# enable PIPEWIRE on Ubuntu 22.04+ Builds
+cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_JACK=ON -DENABLE_PULSEAUDIO=ON -DENABLE_PIPEWIRE=OFF -DENABLE_AJA=OFF -DENABLE_NEW_MPEGTS_OUTPUT=OFF -DBUILD_BROWSER=ON -DCEF_ROOT_DIR=$HOME'/obs-cef/cef_binary_102.0.10+gf249b2e+chromium-102.0.5005.115_linuxarm64_minimal' -DOBS_BUILD_NUMBER=1 -DOBS_VERSION_OVERRIDE=$version ..
 
 make -j$(nproc)
 cmake --build $HOME/obs-studio/build -t package
