@@ -18,6 +18,9 @@ so for example:
 -DBUILD_BROWSER=ON -DCEF_ROOT_DIR='/home/ubuntu/obs-cef/cef_binary_101.0.18+g367b4a0+chromium-101.0.4951.67_linuxarm64_minimal'
 ```
 
+alternatively download aarch64 cef from OBS website https://github.com/obsproject/obs-studio/blob/30.1.2/buildspec.json
+https://cdn-fastly.obsproject.com/downloads/cef_binary_5060_linux_aarch64_v3.tar.xz
+
 #### Installing Dependencies
 
 ```bash
@@ -43,10 +46,12 @@ sudo apt install qt6-base-dev qt6-base-private-dev libqt6svg6-dev
 sudo apt install libavcodec-dev libavdevice-dev libavfilter-dev libavformat-dev libavutil-dev libswresample-dev libswscale-dev libx264-dev libcurl4-openssl-dev libmbedtls-dev libgl1-mesa-dev libjansson-dev libluajit-5.1-dev python3-dev libx11-dev libxcb-randr0-dev libxcb-shm0-dev libxcb-xinerama0-dev libxcb-composite0-dev libxcomposite-dev libxinerama-dev libxcb1-dev libx11-xcb-dev libxcb-xfixes0-dev swig libcmocka-dev libxss-dev libglvnd-dev libgles2-mesa libgles2-mesa-dev libwayland-dev libpci-dev libasound2-dev libfdk-aac-dev libfontconfig-dev libfreetype6-dev libjack-jackd2-dev libpulse-dev libsndio-dev libspeexdsp-dev libudev-dev libv4l-dev libva-dev libvlc-dev libdrm-dev
 ```
 
+Dependencies may change, refer to the upstream documentation for the newest list https://github.com/obsproject/obs-studio/wiki/Build-Instructions-For-Linux
+
 #### Compiling OBS from source
 
 ```bash
-version=29.1.3
+version=30.1.2
 
 git clone --recurse-submodules --shallow-submodules --depth=1 -j$(nproc) -b $version https://github.com/obsproject/obs-studio.git
 cd obs-studio
@@ -63,8 +68,40 @@ cd build
 
 # if you want cef support (replace cef root dir with correct path)
 # enable PIPEWIRE on Ubuntu 22.04+ Builds
-cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_JACK=ON -DENABLE_PULSEAUDIO=ON -DENABLE_PIPEWIRE=OFF -DENABLE_AJA=OFF -DENABLE_QSV11=OFF -DENABLE_WEBRTC=OFF -DENABLE_NEW_MPEGTS_OUTPUT=OFF -DBUILD_BROWSER=ON -DCEF_ROOT_DIR=$HOME'/obs-cef/cef_binary_101.0.18+g367b4a0+chromium-101.0.4951.67_linuxarm64_minimal' -DOBS_BUILD_NUMBER=1 -DOBS_VERSION_OVERRIDE=$version ..
+cmake -DUNIX_STRUCTURE=1 -DCMAKE_INSTALL_PREFIX=/usr -DENABLE_JACK=ON -DENABLE_PULSEAUDIO=ON -DENABLE_PIPEWIRE=ON -DENABLE_AJA=OFF -DENABLE_QSV11=OFF -DENABLE_WEBRTC=OFF -DENABLE_LIBFDK=ON -DENABLE_SNDIO=ON -DENABLE_NEW_MPEGTS_OUTPUT=OFF -DBUILD_BROWSER=ON -DCEF_ROOT_DIR=$HOME'/obs-cef/cef_binary_101.0.18+g367b4a0+chromium-101.0.4951.67_linuxarm64_minimal' -DOBS_BUILD_NUMBER=1 -DOBS_VERSION_OVERRIDE=$version ..
 
 make -j$(nproc)
-cmake --build $HOME/obs-studio/build -t package
+cmake --build ./ -t package
+```
+
+tegra GL OES patch
+```
+From 5d1e2cda0666698798696c9ec3514de50ac3bad4 Mon Sep 17 00:00:00 2001
+From: theofficialgman <28281419+theofficialgman@users.noreply.github.com>
+Date: Sat, 11 Nov 2023 19:32:11 -0500
+Subject: [PATCH] hack: disable egl check
+
+---
+ libobs-opengl/gl-egl-common.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/libobs-opengl/gl-egl-common.c b/libobs-opengl/gl-egl-common.c
+index f06cd19..d7149c3 100644
+--- a/libobs-opengl/gl-egl-common.c
++++ b/libobs-opengl/gl-egl-common.c
+@@ -70,11 +70,6 @@ static bool init_egl_image_target_texture_2d_ext(void)
+ 	if (!initialized) {
+ 		initialized = true;
+ 
+-		if (!find_gl_extension("GL_OES_EGL_image")) {
+-			blog(LOG_ERROR, "No GL_OES_EGL_image");
+-			return false;
+-		}
+-
+ 		glEGLImageTargetTexture2DOES =
+ 			(PFNGLEGLIMAGETARGETTEXTURE2DOESPROC)eglGetProcAddress(
+ 				"glEGLImageTargetTexture2DOES");
+-- 
+2.34.1
+
 ```
