@@ -15,6 +15,20 @@ prevent home directory from mounting in schroot by editing `sudo nano /etc/schro
 /run/shm       /run/shm        none    rw,bind         0       0
 ```
 
+create the schroot config file by editing `sudo nano /etc/schroot/chroot.d/bionic-armhf.conf` making sure to edit <username> to your local user
+```
+[bionic-armhf]
+description=Bionic armhf chroot
+aliases=bionic-armhf
+type=directory
+directory=/srv/chroot/bionic-armhf
+profile=desktop
+personality=linux
+preserve-environment=true
+root-users=<username>
+users=<username>
+```
+
 you can now enter the chroot with 
 `sudo schroot -c bionic-armhf`. you probably want to add your same user to the chroot by executing inside the chroot:
 ```bash
