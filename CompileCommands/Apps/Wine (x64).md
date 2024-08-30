@@ -59,49 +59,11 @@ Add the following patchfile to fix https://bugs.winehq.org/show_bug.cgi?id=55070
          if (progId) /* file association */
 ```
 
-add `check-address-space-limit-on-all-archs.patch`
-```
-diff --git a/dlls/ntdll/unix/virtual.c b/dlls/ntdll/unix/virtual.c
-index 0d88315..87b27fb 100644
---- a/dlls/ntdll/unix/virtual.c
-+++ b/dlls/ntdll/unix/virtual.c
-@@ -2436,8 +2436,6 @@ static NTSTATUS map_pe_header( void *ptr, size_t size, int fd, BOOL *removable )
-     return STATUS_SUCCESS;  /* page protections will be updated later */
- }
- 
--#ifdef __aarch64__
--
- /***********************************************************************
-  *           get_host_addr_space_limit
-  */
-@@ -2464,6 +2462,7 @@ static void *get_host_addr_space_limit(void)
-     return (void *)((addr << 1) - (granularity_mask + 1));
- }
- 
-+#ifdef __aarch64__
- 
- /***********************************************************************
-  *           alloc_arm64ec_map
-@@ -3296,12 +3295,8 @@ void virtual_init(void)
-     pthread_mutex_init( &virtual_mutex, &attr );
-     pthread_mutexattr_destroy( &attr );
- 
--#ifdef __aarch64__
-     host_addr_space_limit = get_host_addr_space_limit();
-     TRACE( "host addr space limit: %p\n", host_addr_space_limit );
--#else
--    host_addr_space_limit = address_space_limit;
--#endif
- 
-     if (preload_info && *preload_info)
-         for (i = 0; (*preload_info)[i].size; i++)
-```
-
 `Wine (x64)`
 should be built on a bionic amd64 chroot
 ```bash
 # download and extract sources
-version=9.13
+version=9.17
 mkdir -p ~/wine
 cd ~/wine
 wget https://dl.winehq.org/wine/source/9.x/wine-${version}.tar.xz
@@ -109,7 +71,6 @@ tar -xvf wine-${version}.tar.xz
 # apply patch
 cd wine-${version}
 git apply ../partial-revert-f1d4dd7cc83d971c6e69c3f2bdffe85dbcd81c0a-v2.patch
-git apply ../check-address-space-limit-on-all-archs.patch
 cd ..
 # build
 mkdir wine-${version}-build
