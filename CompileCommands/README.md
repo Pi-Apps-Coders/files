@@ -37,6 +37,8 @@ useradd -u 1000 --shell /bin/bash -rmUG wheel,video,audio,render <username>
 su - <username>
 ```
 
+It is good at this time to check the sources.list to see if it matches what you want it to be.
+
 Future apps/binaries should be uploaded to the large-files github release. You can do so via the web interface or with the github cli program
 ```bash
 gh release upload large-files path/to/file
