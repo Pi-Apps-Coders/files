@@ -1,34 +1,25 @@
 ## BalenaEtcher
 
 theofficialgman: I hate building etcher. node is fully of broken packages
+etcher now requires Ubuntu Focal+ to builds since it needs nodejs 20+
 
 etcher requires manual patches to the git repo (change to electron 13.5.0+ for newer linux distro compatibility) as well as forcing the usb node module to rebuild since the precompiled version depends on glibc 2.29+ (not available on buster/bionic)
 
 ```bash
-version=v1.10.0
+version=v1.19.25
 
 # Install dependencies
 sudo apt-get install -y git python gcc g++ ruby-dev make libx11-dev libxkbfile-dev fakeroot rpm libsecret-1-dev jq python2.7-dev python3-pip python-setuptools libudev-dev
-sudo gem install fpm --no-document
-# install nodesource repo (I found that 16.x works most reliably with newer etcher versions, but feel free to go higher than this if you like)
-curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+# install nodesource repo 
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 # clone repo and checkout release
 git clone --recurse-submodules --depth 1 --branch "$version" https://github.com/balena-io/etcher
 cd etcher
 
-# install requirements with pip
-pip install -r requirements.txt
-
 # limit node memory usage for older pi models
 export NODE_OPTIONS="--max-old-space-size=1024"
-
-# IMPORTANT: do these steps manuall
-# edit the package.json
-# change electron version 12.0.0 to ^13.5.0
-# change the spectron version from 14.0.0 to 15.0.0
-# change electron-builder to ^23.0.9 (armhf compat)
 
 # setup and install npm modules
 npm install
@@ -50,14 +41,13 @@ cd ~/etcher/node_modules/lzma-native
 npm install
 npm run prebuild
 
-# now start probably won't work so we will just package and then you can test the appimage
 cd ~/etcher
-npm run webpack
 
+# remove sidecar as it is not used in etcher and causes armhf build failures
+# apply the patch from here https://github.com/balena-io/etcher/issues/4256#issuecomment-2183830284
 
-# build and package, forcing use of the system installed fpm version
-ELECTRON_BUILDER_ARCHITECTURE=arm64 USE_SYSTEM_FPM=true npm exec electron-builder --linux
-# ELECTRON_BUILDER_ARCHITECTURE=armv7l USE_SYSTEM_FPM=true npm exec electron-builder --linux
+# actually package the application
+npm run make
 ```
 
-The compiled binaries and/or packages will be in the etcher/dist folder.
+The compiled binaries and/or packages will be in the out/make folder.
