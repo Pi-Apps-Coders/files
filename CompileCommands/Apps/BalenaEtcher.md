@@ -43,9 +43,6 @@ npm run prebuild
 
 cd ~/etcher
 
-# remove sidecar as it is not used in etcher and causes armhf build failures
-# apply the patch from here https://github.com/balena-io/etcher/issues/4256#issuecomment-2183830284
-
 # actually package the application
 npm run make
 ```
