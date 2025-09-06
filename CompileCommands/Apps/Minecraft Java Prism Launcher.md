@@ -21,8 +21,9 @@ create a PKGBUILD file in a new folder
 # Maintainer: theofficialgman <28281419+theofficialgman@users.noreply.github.com>
 
 pkgname=prismlauncher
+installname=PrismLauncher
 pkgver=9.4
-pkgrel=1
+pkgrel=4
 pkgdesc="Minecraft launcher with ability to manage multiple instances."
 arch=('arm64' 'armhf')
 depends=('libatk-bridge2.0-0' 'libatk1.0-0' 'libatspi2.0-0' 'libblkid1' 'libbsd0' 'libc6' 'libcairo-gobject2' 'libcairo2' 'libdatrie1' 'libdbus-1-3' 'libdrm2' 'libegl1' 'libepoxy0' 'libexpat1' 'libfontconfig1' 'libfreetype6' 'libgcc1' 'libgcrypt20' 'libgdk-pixbuf2.0-0' 'libgl1' 'libglib2.0-0' 'libglvnd0' 'libglx0' 'libgpg-error0' 'libgraphite2-3' 'libgtk-3-0' 'libgtk2.0-0' 'libharfbuzz0b' 'libice6' 'libjbig0' 'liblcms2-2' 'liblz4-1' 'liblzma5' 'libmount1' 'libmtdev1' 'libpango-1.0-0' 'libpangocairo-1.0-0' 'libpangoft2-1.0-0' 'libpcre3' 'libpixman-1-0' 'libpng16-16' 'libselinux1' 'libsm6' 'libstdc++6' 'libsystemd0' 'libthai0' 'libudev1' 'libuuid1' 'libwayland-client0' 'libwayland-cursor0' 'libwayland-egl1' 'libx11-6' 'libx11-xcb1' 'libxau6' 'libxcb-glx0' 'libxcb-icccm4' 'libxcb-image0' 'libxcb-keysyms1' 'libxcb-randr0' 'libxcb-render-util0' 'libxcb-render0' 'libxcb-shape0' 'libxcb-shm0' 'libxcb-sync1' 'libxcb1' 'libxcb-xfixes0' 'libxcb-xinerama0' 'libxcb-xinput0' 'libxcb-xkb1' 'libxcb1' 'libxcomposite1' 'libxcursor1' 'libxdamage1' 'libxdmcp6' 'libxext6' 'libxfixes3' 'libxi6' 'libxinerama1' 'libxkbcommon-x11-0' 'libxkbcommon0' 'libxrandr2' 'libxrender1' 'zlib1g')
@@ -56,17 +57,19 @@ package() {
   DESTDIR="$pkgdir" cmake --install . --component portable
   rm "${pkgdir}/usr/portable.txt"
   sed -i 's/-d "${LAUNCHER_DIR}"//g' "${pkgdir}/usr/PrismLauncher"
-  mkdir -p "${pkgdir}/usr/share/${pkgname}/plugins" "${pkgdir}/usr/share/${pkgname}/lib" "${pkgdir}/usr/share/${pkgname}/bin" "${pkgdir}/usr/share/${pkgname}/jars"
-  mv "${pkgdir}/usr/PrismLauncher" "${pkgdir}/usr/share/${pkgname}"
-  mv "${pkgdir}/usr/bin/${pkgname}" "${pkgdir}/usr/share/${pkgname}/bin"
-  cd "${pkgdir}/usr/share/PrismLauncher"
-  mv ./*.jar "${pkgdir}/usr/share/${pkgname}/jars"
+  mkdir -p "${pkgdir}/usr/share/${installname}/plugins" "${pkgdir}/usr/share/${installname}/lib" "${pkgdir}/usr/share/${installname}/bin" "${pkgdir}/usr/share/${installname}/jars"
+  mv "${pkgdir}/usr/${installname}" "${pkgdir}/usr/share/${installname}/"
+  mv "${pkgdir}/usr/bin/${pkgname}" "${pkgdir}/usr/share/${installname}/bin"
+  cd "${pkgdir}/usr/share/${installname}"
+  mkdir -p ./share/${installname}/
+  mv ./qtlogging.ini ./share/${installname}/
+  mv ./*.jar "${pkgdir}/usr/share/${installname}/jars"
   cd "${pkgdir}/usr/bin"
-  ln -s ../share/${pkgname}/PrismLauncher "${pkgname}"
+  ln -s ../share/${installname}/PrismLauncher "${pkgname}"
   cd /opt/qt515/plugins
-  cp -r bearer egldeviceintegrations iconengines imageformats platforminputcontexts platforms platformthemes xcbglintegrations "${pkgdir}/usr/share/${pkgname}/plugins/"
+  cp -r bearer egldeviceintegrations iconengines imageformats platforminputcontexts platforms platformthemes xcbglintegrations "${pkgdir}/usr/share/${installname}/plugins/"
   cd /opt/qt515/lib
-  cp -P libQt5Core.so libQt5Core.so.5 libQt5Core.so.5.15 libQt5Core.so.5.15.2 libQt5DBus.so libQt5DBus.so.5 libQt5DBus.so.5.15 libQt5DBus.so.5.15.2 libQt5EglFSDeviceIntegration.so libQt5EglFSDeviceIntegration.so.5 libQt5EglFSDeviceIntegration.so.5.15 libQt5EglFSDeviceIntegration.so.5.15.2 libQt5EglFsKmsSupport.so libQt5EglFsKmsSupport.so.5 libQt5EglFsKmsSupport.so.5.15 libQt5EglFsKmsSupport.so.5.15.2 libQt5Gui.so libQt5Gui.so.5 libQt5Gui.so.5.15 libQt5Gui.so.5.15.2 libQt5Network.so libQt5Network.so.5 libQt5Network.so.5.15 libQt5Network.so.5.15.2 libQt5Svg.so libQt5Svg.so.5 libQt5Svg.so.5.15 libQt5Svg.so.5.15.2 libQt5Widgets.so libQt5Widgets.so.5 libQt5Widgets.so.5.15 libQt5Widgets.so.5.15.2 libQt5XcbQpa.so libQt5XcbQpa.so.5 libQt5XcbQpa.so.5.15 libQt5XcbQpa.so.5.15.2 libQt5Xml.so libQt5Xml.so.5 libQt5Xml.so.5.15 libQt5Xml.so.5.15.2 libQt5Concurrent.so libQt5Concurrent.so.5 libQt5Concurrent.so.5.15 libQt5Concurrent.so.5.15.2 libQt5NetworkAuth.so libQt5NetworkAuth.so.5 libQt5NetworkAuth.so.5.15 libQt5NetworkAuth.so.5.15.2 "${pkgdir}/usr/share/${pkgname}/lib/"
+  cp -P libQt5Core.so libQt5Core.so.5 libQt5Core.so.5.15 libQt5Core.so.5.15.2 libQt5DBus.so libQt5DBus.so.5 libQt5DBus.so.5.15 libQt5DBus.so.5.15.2 libQt5EglFSDeviceIntegration.so libQt5EglFSDeviceIntegration.so.5 libQt5EglFSDeviceIntegration.so.5.15 libQt5EglFSDeviceIntegration.so.5.15.2 libQt5EglFsKmsSupport.so libQt5EglFsKmsSupport.so.5 libQt5EglFsKmsSupport.so.5.15 libQt5EglFsKmsSupport.so.5.15.2 libQt5Gui.so libQt5Gui.so.5 libQt5Gui.so.5.15 libQt5Gui.so.5.15.2 libQt5Network.so libQt5Network.so.5 libQt5Network.so.5.15 libQt5Network.so.5.15.2 libQt5Svg.so libQt5Svg.so.5 libQt5Svg.so.5.15 libQt5Svg.so.5.15.2 libQt5Widgets.so libQt5Widgets.so.5 libQt5Widgets.so.5.15 libQt5Widgets.so.5.15.2 libQt5XcbQpa.so libQt5XcbQpa.so.5 libQt5XcbQpa.so.5.15 libQt5XcbQpa.so.5.15.2 libQt5Xml.so libQt5Xml.so.5 libQt5Xml.so.5.15 libQt5Xml.so.5.15.2 libQt5Concurrent.so libQt5Concurrent.so.5 libQt5Concurrent.so.5.15 libQt5Concurrent.so.5.15.2 libQt5NetworkAuth.so libQt5NetworkAuth.so.5 libQt5NetworkAuth.so.5.15 libQt5NetworkAuth.so.5.15.2 "${pkgdir}/usr/share/${installname}/lib/"
   
   # QT5 built by this PPA has external dependencies that can not be satisified by all desired distros. So we copy the required libs from the host (as well as any of their dependencies) and place them in the lib folder to be used by prism launcher
   
@@ -77,7 +80,7 @@ package() {
   "armhf") cd /usr/lib/arm-linux-gnueabihf; deb_url="http://ftp.us.debian.org/debian/pool/main/q/qtstyleplugins-src/qt5-gtk2-platformtheme_5.0.0+git23.g335dbec-4+b3_armhf.deb" ;;
   esac
   
-  cp -P ./libcrypto.so.1.1 ./libssl.so.1.1 ./libxcb-util.so.1 ./libxcb-util.so.1.0.0 ./libjpeg.so.8 ./libjpeg.so.8.1.2 ./libicudata.so.60 ./libicudata.so.60.2 ./libicui18n.so.60 ./libicui18n.so.60.2 ./libicuuc.so.60 ./libicuuc.so.60.2 ./libmng.so.2 ./libmng.so.2.0.2 ./libffi.so.6 ./libffi.so.6.0.4 ./libtiff.so.5.3.0 ./libtiff.so.5 "${pkgdir}/usr/share/${pkgname}/lib/"
+  cp -P ./libcrypto.so.1.1 ./libssl.so.1.1 ./libxcb-util.so.1 ./libxcb-util.so.1.0.0 ./libjpeg.so.8 ./libjpeg.so.8.1.2 ./libicudata.so.60 ./libicudata.so.60.2 ./libicui18n.so.60 ./libicui18n.so.60.2 ./libicuuc.so.60 ./libicuuc.so.60.2 ./libmng.so.2 ./libmng.so.2.0.2 ./libffi.so.6 ./libffi.so.6.0.4 ./libtiff.so.5.3.0 ./libtiff.so.5 "${pkgdir}/usr/share/${installname}/lib/"
   
   # The version of QT used from the PPA is QT 5.15.2. In order to get automatic gtk+ themeing support, the QT5 gtk+ plugin needs to be provided in the plugins folder built against QT 5.15.2. The simplest location to obtain this would be ubuntu hirsute (repos taken down) or debian bullseye repos.
   
@@ -88,7 +91,7 @@ package() {
   wget "$deb_url"
   dpkg-deb -R qt5-gtk2-platformtheme_5.0.0+git23.g335dbec-4+b3_*.deb ./
   cd ./usr/lib/*/qt5/plugins
-  cp -r platformthemes styles "${pkgdir}/usr/share/${pkgname}/plugins/"
+  cp -r platformthemes styles "${pkgdir}/usr/share/${installname}/plugins/"
   rm -rf /tmp/temp-deb
 }
 ```
