@@ -5,9 +5,10 @@ assuming you are building on Ubuntu Bionic (for compatability and PPA usage)
 add these ppas:
 https://launchpad.net/~theofficialgman/+archive/ubuntu/opt-qt-5.15.2-bionic-arm
 https://launchpad.net/~theofficialgman/+archive/ubuntu/cmake-bionic
+https://launchpad.net/~theofficialgman/+archive/ubuntu/extra-cmake-modules
 
 install depenendcies:
-`sudo apt install cmake zlib1g-dev libgl1-mesa-dev extra-cmake-modules clang-10 openjdk-11-jdk qt5153d qt515base qt515declarative qt515gamepad qt515graphicaleffects qt515imageformats qt515multimedia qt515xmlpatterns qt515svg`
+`sudo apt install cmake zlib1g-dev libgl1-mesa-dev extra-cmake-modules clang-10 openjdk-11-jdk qt5153d qt515base qt515declarative qt515gamepad qt515graphicaleffects qt515imageformats qt515multimedia qt515xmlpatterns qt515networkauth-no-lgpl qt515svg`
 
 install makedeb (you NEED to use the alpha release or a release greater than v16.1.0-alpha10):
 `bash -ci "$(wget -qO - 'https://shlink.makedeb.org/install')"`
@@ -20,8 +21,8 @@ create a PKGBUILD file in a new folder
 # Maintainer: theofficialgman <28281419+theofficialgman@users.noreply.github.com>
 
 pkgname=prismlauncher
-pkgver=6.3
-pkgrel=2
+pkgver=9.4
+pkgrel=1
 pkgdesc="Minecraft launcher with ability to manage multiple instances."
 arch=('arm64' 'armhf')
 depends=('libatk-bridge2.0-0' 'libatk1.0-0' 'libatspi2.0-0' 'libblkid1' 'libbsd0' 'libc6' 'libcairo-gobject2' 'libcairo2' 'libdatrie1' 'libdbus-1-3' 'libdrm2' 'libegl1' 'libepoxy0' 'libexpat1' 'libfontconfig1' 'libfreetype6' 'libgcc1' 'libgcrypt20' 'libgdk-pixbuf2.0-0' 'libgl1' 'libglib2.0-0' 'libglvnd0' 'libglx0' 'libgpg-error0' 'libgraphite2-3' 'libgtk-3-0' 'libgtk2.0-0' 'libharfbuzz0b' 'libice6' 'libjbig0' 'liblcms2-2' 'liblz4-1' 'liblzma5' 'libmount1' 'libmtdev1' 'libpango-1.0-0' 'libpangocairo-1.0-0' 'libpangoft2-1.0-0' 'libpcre3' 'libpixman-1-0' 'libpng16-16' 'libselinux1' 'libsm6' 'libstdc++6' 'libsystemd0' 'libthai0' 'libudev1' 'libuuid1' 'libwayland-client0' 'libwayland-cursor0' 'libwayland-egl1' 'libx11-6' 'libx11-xcb1' 'libxau6' 'libxcb-glx0' 'libxcb-icccm4' 'libxcb-image0' 'libxcb-keysyms1' 'libxcb-randr0' 'libxcb-render-util0' 'libxcb-render0' 'libxcb-shape0' 'libxcb-shm0' 'libxcb-sync1' 'libxcb1' 'libxcb-xfixes0' 'libxcb-xinerama0' 'libxcb-xinput0' 'libxcb-xkb1' 'libxcb1' 'libxcomposite1' 'libxcursor1' 'libxdamage1' 'libxdmcp6' 'libxext6' 'libxfixes3' 'libxi6' 'libxinerama1' 'libxkbcommon-x11-0' 'libxkbcommon0' 'libxrandr2' 'libxrender1' 'zlib1g')
@@ -58,7 +59,7 @@ package() {
   mkdir -p "${pkgdir}/usr/share/${pkgname}/plugins" "${pkgdir}/usr/share/${pkgname}/lib" "${pkgdir}/usr/share/${pkgname}/bin" "${pkgdir}/usr/share/${pkgname}/jars"
   mv "${pkgdir}/usr/PrismLauncher" "${pkgdir}/usr/share/${pkgname}"
   mv "${pkgdir}/usr/bin/${pkgname}" "${pkgdir}/usr/share/${pkgname}/bin"
-  cd "${pkgdir}/usr/share/${pkgname}"
+  cd "${pkgdir}/usr/share/PrismLauncher"
   mv ./*.jar "${pkgdir}/usr/share/${pkgname}/jars"
   cd "${pkgdir}/usr/bin"
   ln -s ../share/${pkgname}/PrismLauncher "${pkgname}"
