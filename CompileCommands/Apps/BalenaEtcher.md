@@ -48,3 +48,12 @@ npm run make
 ```
 
 The compiled binaries and/or packages will be in the out/make folder.
+
+Note by botspot: To fix installation error on trixie: https://github.com/balena-io/etcher/issues/4550#issuecomment-3566028150
+```
+dpkg-deb -R balena-etcher_*.deb etcher-fix
+sed -i 's/libgdk-pixbuf2\.0-0/libgdk-pixbuf2.0-0 | libgdk-pixbuf-2.0-0/g' etcher-fix/DEBIAN/control
+dpkg-deb -b etcher-fix balena-etcher_*.deb
+rm -r etcher-fix
+```
+(I manually downloaded, fixed, and re-uploaded balena-etcher_1.19.25_arm64.deb on 2/3/2026. If we ever rebuild balena-etcher, don't forget to do this again.)
